@@ -50,8 +50,6 @@ export const authOptions: NextAuthOptions = {
       user?: { accessToken?: string; id?: string };
     }) {
       // When user signs in, save the accessToken to the JWT
-      // console.log(user, user.accessToken);
-      console.log("jwt callback", token, user);
       if (user) {
         token.accessToken = user.accessToken!;
         token.id = user.id;

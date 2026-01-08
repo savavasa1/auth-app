@@ -20,7 +20,6 @@ export const useLogin = () => {
 
       if (result?.ok) {
         // Successful login - redirect to /logged
-        console.log("Login successful");
         router.push("/logged");
       } else {
         // Handle login failure
