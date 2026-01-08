@@ -1,17 +1,12 @@
 import React from "react";
-import { headers } from "next/headers";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { fetchFromBackend } from "@/lib/serversession";
 
 const LoggedInPage = async () => {
-  // Call through the Next.js API proxy which adds the token automatically
-  const response = await fetch(
-    `${
-      process.env.NEXTAUTH_URL || "http://localhost:3000"
-    }/api/backend/product`,
-    {
-      cache: "no-store",
-      headers: await headers(),
-    }
-  );
+  const session = await getServerSession(authOptions);
+  // Call backend directly
+  const response = await fetchFromBackend(["product"], "GET", session);
 
   if (response.ok) {
     const products = await response.json();
